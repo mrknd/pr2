@@ -1,3 +1,4 @@
+[![Continuous Integration](https://github.com/mrknd/pr2/actions/workflows/first_ci.yml/badge.svg)](https://github.com/mrknd/pr2/actions/workflows/first_ci.yml)
 # Flask Product API
 
 This is a simple Flask API for managing product data. The API allows you to perform basic CRUD (Create, Read, Update, Delete) operations on products.
