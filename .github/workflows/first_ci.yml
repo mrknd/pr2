@@ -1,39 +1,50 @@
-name: GitHub Actions Demo
-
-run-name: ${{ github.actor }} is testing out GitHub Actions
+name: Continuous Integration
 
 on:
-
   push:
-
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-
-  Explore-GitHub-Actions:
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-      - run: echo "This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
-      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+    - name: Run unit tests
+      run: python -m unittest discover
 
-      - name: Check out repository code
+    - name: Update project code
+      run: echo "Updating project code"
 
-        uses: actions/checkout@v3
+  manual-trigger:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'repository_dispatch'
 
-      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - run: echo "The workflow is now ready to test your code on the runner."
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-      - name: List files in the repository
+    - name: Install dependencies
+      run: pip install -r requirements.txt
 
-        run: |
+    - name: Run unit tests
+      run: python -m unittest discover
 
-          ls ${{ github.workspace }}
-
-      - run: echo "This job's status is ${{ job.status }}."
+    - name: Update project code
+      run: echo "Updating project code"
